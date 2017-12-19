@@ -1,0 +1,123 @@
+#include<iostream>
+#include<conio.h>
+#define MAX_STACK 40
+#define MIN_STACK 0
+using namespace std;
+
+template <class T>
+class cStack
+{
+private:
+   T array[MAX_STACK];
+   int top;
+   int base;
+public:
+   cStack();
+   ~cStack();
+   void push(T var);
+   T pop();
+   void printStack();
+   T readStack(){return array[top];}	
+   void checkPalindrome();
+};
+
+template <class T>
+cStack<T>::cStack()
+{
+array[MAX_STACK]={0};
+top=0;
+base=0;
+}
+
+template <class T>
+cStack<T>::~cStack()
+{
+
+}
+
+template <class T>
+void cStack<T>::push(T val)
+{
+	if (top == MAX_STACK)
+	{
+	   cout<<"Stack is full,cant push"<<endl;
+	   return;
+	}
+	array[top]=val;
+	top++;
+}
+
+template <class T>
+T cStack<T>:: pop()
+{	
+   if (top == MIN_STACK)
+   {
+      cout<<"Stack is empty, cant pop"<<endl;
+      return -1; 
+   }
+   T retval=array[top-1];
+   top--;
+   return retval;   
+}
+
+template <class T>
+void cStack<T>::printStack()
+{
+   for (int i=0;i<top;i++)
+   {
+      cout<<array[i];
+   }
+   cout<<endl;
+}
+
+template <class T>
+void cStack<T>::checkPalindrome()
+{   
+   T *headptr=array;
+   T *tailptr=array+top-1;
+   cout<<endl<<"head is "<<*headptr<<endl<<"tail is "<<*tailptr<<endl; 
+      
+   bool checkPalindrome = true;
+   
+   while (tailptr>headptr)
+   {
+      if(array[*headptr++]!=array[*tailptr--])
+      {
+       	checkPalindrome = false;
+      	break;      	
+      }
+   }
+   if (checkPalindrome == false)
+   cout<<"Not palindrome"<<endl;
+   else
+   cout<<"Palindrome"<<endl;
+}
+
+int main()
+{
+	cStack<char>myStack;
+    myStack.push('n');
+	myStack.push('i');
+    myStack.push('t');
+	myStack.push('i');
+	myStack.push('n');
+	myStack.printStack();
+	cout<<endl;
+	cout<<"Popped value is "<<myStack.pop()<<endl;
+    myStack.printStack();
+    myStack.push('n');
+    myStack.printStack();
+    myStack.checkPalindrome();
+    cout<<endl<<"lets try one more"<<endl;
+    cStack<char>myStack2;
+    myStack2.push('d');
+	myStack2.push('i');
+    myStack2.push('w');
+	myStack2.push('a');
+	myStack2.push('k');
+    myStack2.push('a');
+    myStack2.push('r');
+    myStack2.printStack();
+    myStack2.checkPalindrome();
+	return 0;
+}
